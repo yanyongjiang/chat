@@ -1,0 +1,28 @@
+CREATE TABLE `chartcont` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fldfrom` varchar(64) DEFAULT NULL,
+  `fldto` varchar(64) DEFAULT NULL,
+  `fldngdate` datetime DEFAULT NULL,
+  `fldtext` text,
+  `fldrdate` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `friend` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `flduserid` int(11) DEFAULT NULL,
+  `fldfriendid` int(11) DEFAULT NULL,
+  `fldngdate` datetime DEFAULT NULL,
+  `fldlastcdate` datetime DEFAULT NULL,
+  `fldlastcont` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fldloginid` varchar(500) DEFAULT NULL,
+  `fldname` varchar(500) DEFAULT NULL,
+  `fldpassword` varchar(500) DEFAULT NULL,
+  `fldngdate` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;

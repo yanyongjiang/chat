@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyj.wechat.mapper.ChartContMapper">
+  <resultMap id="BaseResultMap" type="com.yyj.wechat.entity.ChartCont">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fldfrom" jdbcType="VARCHAR" property="fldfrom" />
+    <result column="fldto" jdbcType="VARCHAR" property="fldto" />
+    <result column="fldngdate" jdbcType="TIMESTAMP" property="fldngdate" />
+    <result column="fldrdate" jdbcType="TIMESTAMP" property="fldrdate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yyj.wechat.entity.ChartCont">
+    <result column="fldtext" jdbcType="LONGVARCHAR" property="fldtext" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, fldfrom, fldto, fldngdate, fldrdate
+  </sql>
+  <sql id="Blob_Column_List">
+    fldtext
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from chartcont
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="listChatCont" resultMap="ResultMapWithBLOBs">
+    <bind name="assign" value="1" />
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from chartcont
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <choose>
+        <when test="fldto ==fldfrom">
+          <if test="fldto != null">
+            (fldto =#{fldto} and fldfrom =#{fldto})
+            <bind name="assign" value="2" />
+          </if>
+          <if test="fldngdatestart != null">
+            and fldngdate>=#{fldngdatestart}
+            <bind name="assign" value="2" />
+          </if>
+        </when>
+        <otherwise>
+          <if test="fldto != null">
+            (fldto =#{fldto} or fldfrom =#{fldto})
+            <bind name="assign" value="2" />
+          </if>
+          <if test="fldfrom != null">
+            and (fldfrom =#{fldfrom} or fldto =#{fldfrom})
+            <bind name="assign" value="2" />
+          </if>
+          <if test="fldngdatestart != null">
+            and fldngdate>=#{fldngdatestart}
+            <bind name="assign" value="2" />
+          </if>
+        </otherwise>
+      </choose>
+    <if test="assign==1">
+      and 0=1
+    </if>
+    </trim>
+    order by fldngdate desc limit #{start},10
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from chartcont
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yyj.wechat.entity.ChartCont">
+    insert into chartcont (id, fldfrom, fldto, 
+      fldngdate, fldrdate, fldtext
+      )
+    values (#{id,jdbcType=INTEGER}, #{fldfrom,jdbcType=VARCHAR}, #{fldto,jdbcType=VARCHAR}, 
+      #{fldngdate,jdbcType=TIMESTAMP}, #{fldrdate,jdbcType=TIMESTAMP}, #{fldtext,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyj.wechat.entity.ChartCont">
+    insert into chartcont
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fldfrom != null">
+        fldfrom,
+      </if>
+      <if test="fldto != null">
+        fldto,
+      </if>
+      <if test="fldngdate != null">
+        fldngdate,
+      </if>
+      <if test="fldrdate != null">
+        fldrdate,
+      </if>
+      <if test="fldtext != null">
+        fldtext,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fldfrom != null">
+        #{fldfrom,jdbcType=VARCHAR},
+      </if>
+      <if test="fldto != null">
+        #{fldto,jdbcType=VARCHAR},
+      </if>
+      <if test="fldngdate != null">
+        #{fldngdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fldrdate != null">
+        #{fldrdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fldtext != null">
+        #{fldtext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyj.wechat.entity.ChartCont">
+    update chartcont
+    <set>
+      <if test="fldfrom != null">
+        fldfrom = #{fldfrom,jdbcType=VARCHAR},
+      </if>
+      <if test="fldto != null">
+        fldto = #{fldto,jdbcType=VARCHAR},
+      </if>
+      <if test="fldngdate != null">
+        fldngdate = #{fldngdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fldrdate != null">
+        fldrdate = #{fldrdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fldtext != null">
+        fldtext = #{fldtext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yyj.wechat.entity.ChartCont">
+    update chartcont
+    set fldfrom = #{fldfrom,jdbcType=VARCHAR},
+      fldto = #{fldto,jdbcType=VARCHAR},
+      fldngdate = #{fldngdate,jdbcType=TIMESTAMP},
+      fldrdate = #{fldrdate,jdbcType=TIMESTAMP},
+      fldtext = #{fldtext,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyj.wechat.entity.ChartCont">
+    update chartcont
+    set fldfrom = #{fldfrom,jdbcType=VARCHAR},
+      fldto = #{fldto,jdbcType=VARCHAR},
+      fldngdate = #{fldngdate,jdbcType=TIMESTAMP},
+      fldrdate = #{fldrdate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

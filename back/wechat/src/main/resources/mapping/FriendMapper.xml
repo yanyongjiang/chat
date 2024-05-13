@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyj.wechat.mapper.FriendMapper">
+  <resultMap id="BaseResultMap" type="com.yyj.wechat.entity.Friend">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="flduserid" jdbcType="VARCHAR" property="flduserid" />
+    <result column="fldfriendid" jdbcType="VARCHAR" property="fldfriendid" />
+    <result column="fldngdate" jdbcType="TIMESTAMP" property="fldngdate" />
+    <result column="fldlastcdate" jdbcType="TIMESTAMP" property="fldlastcdate" />
+    <result column="fldlastcont" jdbcType="TIMESTAMP" property="fldlastcont" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, flduserid, fldfriendid, fldngdate, fldlastcdate, fldlastcont
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from friend
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByflduserid" resultType="Map">
+    select
+    a.*,b.id as uid,b.fldname as fldname
+    from friend  a,user b
+    where (a.fldfriendid=b.id and a.flduserid = #{flduserid}) or (a.flduserid=b.id and a.fldfriendid = #{flduserid})  order by a.fldlastcdate desc limit 0,1000
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from friend
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yyj.wechat.entity.Friend">
+    insert into friend (id, flduserid, fldfriendid, 
+      fldngdate, fldlastcdate, fldlastcont
+      )
+    values (#{id,jdbcType=INTEGER}, #{flduserid,jdbcType=VARCHAR}, #{fldfriendid,jdbcType=VARCHAR}, 
+      #{fldngdate,jdbcType=TIMESTAMP}, #{fldlastcdate,jdbcType=TIMESTAMP}, #{fldlastcont,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyj.wechat.entity.Friend">
+    insert into friend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="flduserid != null">
+        flduserid,
+      </if>
+      <if test="fldfriendid != null">
+        fldfriendid,
+      </if>
+      <if test="fldngdate != null">
+        fldngdate,
+      </if>
+      <if test="fldlastcdate != null">
+        fldlastcdate,
+      </if>
+      <if test="fldlastcont != null">
+        fldlastcont,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="flduserid != null">
+        #{flduserid,jdbcType=VARCHAR},
+      </if>
+      <if test="fldfriendid != null">
+        #{fldfriendid,jdbcType=VARCHAR},
+      </if>
+      <if test="fldngdate != null">
+        #{fldngdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fldlastcdate != null">
+        #{fldlastcdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fldlastcont != null">
+        #{fldlastcont,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyj.wechat.entity.Friend">
+    update friend
+    <set>
+      <if test="flduserid != null">
+        flduserid = #{flduserid,jdbcType=VARCHAR},
+      </if>
+      <if test="fldfriendid != null">
+        fldfriendid = #{fldfriendid,jdbcType=VARCHAR},
+      </if>
+      <if test="fldngdate != null">
+        fldngdate = #{fldngdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fldlastcdate != null">
+        fldlastcdate = #{fldlastcdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fldlastcont != null">
+        fldlastcont = #{fldlastcont,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyj.wechat.entity.Friend">
+    update friend
+    set flduserid = #{flduserid,jdbcType=VARCHAR},
+      fldfriendid = #{fldfriendid,jdbcType=VARCHAR},
+      fldngdate = #{fldngdate,jdbcType=TIMESTAMP},
+      fldlastcdate = #{fldlastcdate,jdbcType=TIMESTAMP},
+      fldlastcont = #{fldlastcont,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

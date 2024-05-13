@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyj.wechat.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.yyj.wechat.entity.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fldloginid" jdbcType="VARCHAR" property="fldloginid" />
+    <result column="fldname" jdbcType="VARCHAR" property="fldname" />
+    <result column="fldpassword" jdbcType="VARCHAR" property="fldpassword" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, fldloginid, fldname, fldpassword
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from user
+  where id = #{id,jdbcType=INTEGER}
+</select>
+  <select id="selectByLoginId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where fldloginid = #{loginId}
+  </select>
+
+  <select id="selectOrderByDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where 1=1 order by fldngdate desc limit 0,1000
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yyj.wechat.entity.User">
+    insert into user (id, fldloginid, fldname, 
+      fldpassword)
+    values (#{id,jdbcType=INTEGER}, #{fldloginid,jdbcType=VARCHAR}, #{fldname,jdbcType=VARCHAR}, 
+      #{fldpassword,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyj.wechat.entity.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fldloginid != null">
+        fldloginid,
+      </if>
+      <if test="fldname != null">
+        fldname,
+      </if>
+      <if test="fldpassword != null">
+        fldpassword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fldloginid != null">
+        #{fldloginid,jdbcType=VARCHAR},
+      </if>
+      <if test="fldname != null">
+        #{fldname,jdbcType=VARCHAR},
+      </if>
+      <if test="fldpassword != null">
+        #{fldpassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyj.wechat.entity.User">
+    update user
+    <set>
+      <if test="fldloginid != null">
+        fldloginid = #{fldloginid,jdbcType=VARCHAR},
+      </if>
+      <if test="fldname != null">
+        fldname = #{fldname,jdbcType=VARCHAR},
+      </if>
+      <if test="fldpassword != null">
+        fldpassword = #{fldpassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyj.wechat.entity.User">
+    update user
+    set fldloginid = #{fldloginid,jdbcType=VARCHAR},
+      fldname = #{fldname,jdbcType=VARCHAR},
+      fldpassword = #{fldpassword,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

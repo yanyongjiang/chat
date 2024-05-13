@@ -1,0 +1,70 @@
+CREATE TABLE `bbschartuser` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `flduserid` varchar(64) DEFAULT NULL,
+  `fldfriendid` varchar(64) DEFAULT NULL,
+  `fldngdate` datetime DEFAULT NULL,
+  `fldlastcdate` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fldloginid` varchar(500) DEFAULT NULL,
+  `fldname` varchar(500) DEFAULT NULL,
+  `fldpassword` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8
+
+
+   {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+          title: 'Brunch this weekend?',
+          subtitle: "<span class='text--primary'>Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?",
+        },
+        { divider: true, inset: true },
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+          title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
+          subtitle: "<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.",
+        },
+        { divider: true, inset: true },
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+          title: 'Oui oui',
+          subtitle: "<span class='text--primary'>Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?",
+        },
+        { divider: true, inset: true },
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+          title: 'Birthday gift',
+          subtitle: "<span class='text--primary'>Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?",
+        },
+        { divider: true, inset: true },
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
+          title: 'Recipe to try',
+          subtitle: "<span class='text--primary'>Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.",
+        },
+		
+		 produces = {"application/json;charset=UTF-8"}
+		 
+		 logo.png
+		 
+		  // var date1 = new Date();
+        // var date2 = new Date(date1);
+        // date2.setDate(date1.getDate() -7);
+        // var m=date2.getMonth() + 1;
+        // if(m<10) m='0'+m;
+        // var d=date2.getDate();
+        // if(d<10) d='0'+d;
+        // var time2 = date2.getFullYear() + "-" + m + "-" + d;
+		
+		var scrollDom = document.getElementById('chattochat');scrollDom.scrollTop = scrollDom.scrollHeight;
+		
+		setTimeout(()=>{
+                        console.log(`点击了添加按钮，更新时间：${time},此时的div.scrollHeight是：${div.scrollHeight}`)
+                        div.scrollTop = div.scrollHeight;
+
+————————————————
+版权声明：本文为CSDN博主「Victor jiang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/weixin_41190571/java/article/details/86509383
